@@ -56,6 +56,14 @@ coverletter.md
 
 로컬 Excel, CSV, PDF, 기존 경력서처럼 개인 정보가 들어 있는 원본 파일은 `source/` 폴더에 보관합니다. `source/` 폴더는 로컬 작업용이며 `.gitignore`에 포함되어 원격 저장소에 올라가지 않습니다.
 
+Git은 빈 폴더를 원격 저장소에 저장하지 않기 때문에 GitHub에는 `source/` 폴더가 보이지 않을 수 있습니다. 저장소를 clone한 뒤 아래 명령으로 로컬에 폴더를 만드세요.
+
+```bash
+mkdir -p source
+```
+
+`source/` 안의 파일은 개인 경력 원본 데이터이므로 어떤 파일도 원격 저장소에 올리지 않습니다. `.gitkeep` 같은 placeholder 파일도 넣지 않는 것을 원칙으로 합니다.
+
 기본 컬럼:
 
 | NO | 업체 | Project | ISSUE | 담당 업무 | 문제 해결 | 배운점 |
