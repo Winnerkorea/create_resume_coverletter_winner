@@ -437,6 +437,20 @@ http://127.0.0.1:4173/
 skills/writing-career-resume/SKILL.md
 ```
 
+Codex가 이 Skill을 자동으로 읽게 하려면 로컬 Codex Skill 경로에 설치해야 합니다.
+
+```bash
+npm run install:skill
+```
+
+설치 위치:
+
+```text
+~/.codex/skills/writing-career-resume/SKILL.md
+```
+
+설치 후 Codex가 바로 인식하지 못하면 새 세션을 시작하거나 Codex를 재시작하세요.
+
 이 스킬은 다음을 정의합니다.
 
 - Excel/Google Sheets 경력 입력 컬럼
