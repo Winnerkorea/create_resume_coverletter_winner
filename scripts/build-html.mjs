@@ -278,7 +278,9 @@ function isSeparatorRow(line) {
 }
 
 function isResumeKey(value) {
-  return ["기간", "ISSUE", "담당업무", "담당 업무", "역할", "배운점", "기술"].includes(value);
+  return ["항목", "기간", "ISSUE", "담당업무", "담당 업무", "역할", "배운점", "기술"].includes(
+    value,
+  );
 }
 
 function renderInline(value) {
