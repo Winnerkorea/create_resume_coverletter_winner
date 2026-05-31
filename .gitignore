@@ -1,5 +1,11 @@
 # Local career source files
 source/
 
+# Local generated documents
+dist/
+/resume.md
+/coverletter.md
+*.pdf
+
 # OS/editor noise
 .DS_Store

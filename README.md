@@ -138,7 +138,38 @@ source/my-career.xlsx 파일을 기반으로 이력서와 커버레터를 만들
 
 ### 6. HTML 미리보기와 PDF 출력
 
-현재 저장소에는 초기 HTML 프로토타입이 포함되어 있습니다.
+Node.js로 `resume.md`와 `coverletter.md`를 HTML로 변환합니다. 별도 패키지 설치 없이 Node.js만 있으면 됩니다. Node.js 18 이상 사용을 권장합니다.
+
+예시 문서로 먼저 확인하려면 아래 명령을 실행합니다.
+
+```bash
+npm run build:html:example
+```
+
+실제 문서를 변환하려면 AI가 만든 Markdown 파일을 `source/`에 넣고 실행합니다.
+
+```text
+source/resume.md
+source/coverletter.md
+```
+
+```bash
+npm run build:html -- --resume source/resume.md --coverletter source/coverletter.md
+```
+
+생성 결과는 `dist/` 폴더에 만들어집니다.
+
+```text
+dist/index.html
+dist/resume.html
+dist/coverletter.html
+```
+
+`dist/`는 로컬 출력 폴더이며 GitHub에 올라가지 않습니다.
+
+브라우저에서 `dist/index.html`을 열고 `PDF 저장` 버튼 또는 브라우저 인쇄 기능으로 PDF를 저장합니다.
+
+초기 입력형 프로토타입도 함께 확인할 수 있습니다.
 
 ```bash
 python3 -m http.server 4173 --bind 127.0.0.1
@@ -150,7 +181,7 @@ python3 -m http.server 4173 --bind 127.0.0.1
 http://127.0.0.1:4173/
 ```
 
-최종 구조는 `resume.md`와 `coverletter.md`를 Markdown parser로 HTML에 렌더링하고, 선택한 CSS 양식을 적용한 뒤 PDF로 출력하는 방식입니다.
+최종 구조는 `resume.md`와 `coverletter.md`를 Node.js Markdown parser로 HTML에 렌더링하고, 선택한 CSS 양식을 적용한 뒤 브라우저 인쇄로 PDF를 출력하는 방식입니다.
 
 ## 최종 산출물
 
@@ -328,6 +359,14 @@ hong@example.com | Seoul | GitHub: github.com/example
 index.html
 styles.css
 app.js
+package.json
+scripts/
+  build-html.mjs
+templates/
+  document.css
+examples/
+  resume.md
+  coverletter.md
 skills/
   writing-career-resume/
     SKILL.md

@@ -1,0 +1,10 @@
+{
+  "name": "resume-cover-letter-winner",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build:html": "node scripts/build-html.mjs",
+    "build:html:example": "node scripts/build-html.mjs --resume examples/resume.md --coverletter examples/coverletter.md --out dist"
+  }
+}

@@ -1,0 +1,236 @@
+:root {
+  color-scheme: light;
+  --page-bg: #eef2f4;
+  --paper: #ffffff;
+  --ink: #202427;
+  --muted: #677176;
+  --line: #d8e0e3;
+  --accent: #0f766e;
+  --accent-2: #9a3412;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--page-bg);
+  color: var(--ink);
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    sans-serif;
+}
+
+.print-toolbar {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 10px 18px;
+  background: #ffffff;
+  border-bottom: 1px solid var(--line);
+  color: var(--muted);
+}
+
+.print-toolbar a {
+  color: var(--accent);
+  font-weight: 800;
+  text-decoration: none;
+}
+
+.print-toolbar button {
+  margin-left: auto;
+  min-height: 38px;
+  border: 0;
+  border-radius: 6px;
+  padding: 0 14px;
+  background: var(--accent);
+  color: #ffffff;
+  cursor: pointer;
+  font: inherit;
+  font-weight: 800;
+}
+
+.print-stage {
+  display: grid;
+  gap: 22px;
+  justify-items: center;
+  padding: 24px;
+}
+
+.document {
+  width: min(100%, 840px);
+  min-height: 1120px;
+  padding: 52px;
+  background: var(--paper);
+  border: 1px solid var(--line);
+  box-shadow: 0 20px 45px rgba(31, 41, 55, 0.13);
+}
+
+.document h1 {
+  margin: 0 0 12px;
+  font-size: 34px;
+  line-height: 1.15;
+  letter-spacing: 0;
+}
+
+.document h2 {
+  margin: 30px 0 12px;
+  padding-bottom: 7px;
+  border-bottom: 2px solid var(--ink);
+  font-size: 20px;
+  line-height: 1.25;
+  letter-spacing: 0;
+}
+
+.document h3 {
+  margin: 24px 0 8px;
+  font-size: 17px;
+  line-height: 1.35;
+  letter-spacing: 0;
+}
+
+.document p,
+.document li,
+.document td,
+.document th {
+  font-size: 14px;
+  line-height: 1.65;
+}
+
+.document p {
+  margin: 0 0 12px;
+}
+
+.document ul {
+  margin: 8px 0 14px;
+  padding-left: 22px;
+}
+
+.document table {
+  width: 100%;
+  margin: 12px 0 22px;
+  border-collapse: collapse;
+}
+
+.document th,
+.document td {
+  vertical-align: top;
+  border: 1px solid var(--line);
+  padding: 10px 12px;
+  text-align: left;
+}
+
+.document thead th,
+.kv-table th {
+  background: #f7fafb;
+  font-weight: 850;
+}
+
+.kv-table th {
+  width: 118px;
+}
+
+.document hr {
+  height: 1px;
+  margin: 30px 0;
+  border: 0;
+  background: var(--line);
+}
+
+.document a {
+  color: var(--accent);
+}
+
+.template-career-detail h2,
+.template-career-detail .kv-table th {
+  border-color: var(--accent);
+}
+
+.template-career-detail h3 {
+  color: var(--accent);
+}
+
+.template-portfolio-open-source h1 {
+  color: var(--accent);
+}
+
+.template-portfolio-open-source h2 {
+  border-bottom-color: var(--accent-2);
+}
+
+.template-portfolio-open-source .kv-table th {
+  background: #fff7ed;
+}
+
+.document-coverletter p {
+  font-size: 15px;
+}
+
+.letter-growth-story h1,
+.letter-growth-story h2 {
+  color: var(--accent);
+}
+
+.letter-impact-first h1 {
+  padding-bottom: 12px;
+  border-bottom: 3px solid var(--accent-2);
+}
+
+@media (max-width: 760px) {
+  .print-toolbar {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .print-toolbar button {
+    margin-left: 0;
+  }
+
+  .print-stage {
+    padding: 12px;
+  }
+
+  .document {
+    min-height: auto;
+    padding: 28px;
+  }
+}
+
+@media print {
+  @page {
+    size: A4;
+    margin: 16mm;
+  }
+
+  body {
+    background: #ffffff;
+  }
+
+  .print-toolbar {
+    display: none;
+  }
+
+  .print-stage {
+    display: block;
+    padding: 0;
+  }
+
+  .document {
+    width: auto;
+    min-height: auto;
+    margin: 0;
+    padding: 0;
+    border: 0;
+    box-shadow: none;
+    page-break-after: always;
+  }
+
+  .document:last-child {
+    page-break-after: auto;
+  }
+}
