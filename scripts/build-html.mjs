@@ -107,7 +107,7 @@ function stripEnvQuotes(value) {
 
 function applyEnvPlaceholders(markdown, env) {
   return markdown.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
-    return env[key] || match;
+    return Object.prototype.hasOwnProperty.call(env, key) ? env[key] : match;
   });
 }
 
