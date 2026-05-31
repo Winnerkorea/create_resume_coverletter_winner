@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Resume Cover Letter Winner</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div>
+        <p class="eyebrow">Open source career document builder</p>
+        <h1>이력서와 커버레터 생성기</h1>
+      </div>
+      <button class="primary-action" id="printButton" type="button" title="PDF로 저장">
+        PDF 출력
+      </button>
+    </header>
+
+    <main class="workspace">
+      <section class="editor-panel" aria-label="입력 영역">
+        <div class="tabs" role="tablist" aria-label="입력 단계">
+          <button class="tab active" data-tab="job" type="button">채용공고</button>
+          <button class="tab" data-tab="profile" type="button">내 경력</button>
+          <button class="tab" data-tab="tuning" type="button">수정</button>
+        </div>
+
+        <form class="tab-panel active" id="jobPanel">
+          <label>
+            채용공고 제목
+            <input id="jobTitle" type="text" placeholder="예: Frontend Engineer" />
+          </label>
+          <label>
+            회사명
+            <input id="companyName" type="text" placeholder="예: Open Career Labs" />
+          </label>
+          <label>
+            채용공고 본문
+            <textarea id="jobPosting" rows="14" placeholder="채용 사이트에서 공고 내용을 붙여 넣으세요."></textarea>
+          </label>
+          <button id="analyzeButton" class="secondary-action" type="button">공고 정리</button>
+        </form>
+
+        <form class="tab-panel" id="profilePanel">
+          <label>
+            이름
+            <input id="candidateName" type="text" placeholder="홍길동" />
+          </label>
+          <label>
+            연락처
+            <input id="contactInfo" type="text" placeholder="email@example.com · 010-0000-0000 · Seoul" />
+          </label>
+          <label>
+            한 줄 소개
+            <textarea id="summary" rows="4" placeholder="지원 직무와 연결되는 핵심 강점을 적어 주세요."></textarea>
+          </label>
+          <label>
+            경력과 성과
+            <textarea id="experience" rows="10" placeholder="- React 기반 대시보드 성능 35% 개선&#10;- 결제 장애 대응 프로세스 자동화"></textarea>
+          </label>
+          <label>
+            기술 스택
+            <input id="skills" type="text" placeholder="React, TypeScript, Node.js, SQL" />
+          </label>
+        </form>
+
+        <form class="tab-panel" id="tuningPanel">
+          <label>
+            강조하고 싶은 키워드
+            <input id="focusKeywords" type="text" placeholder="성능 최적화, 협업, 데이터 기반 개선" />
+          </label>
+          <label>
+            커버레터 톤
+            <select id="letterTone">
+              <option value="balanced">담백하고 전문적으로</option>
+              <option value="confident">자신감 있게</option>
+              <option value="warm">따뜻하고 협업 중심으로</option>
+            </select>
+          </label>
+          <label class="checkbox-row">
+            <input id="includeOpenSource" type="checkbox" checked />
+            오픈소스 기여 섹션 포함
+          </label>
+          <button id="generateButton" class="primary-action wide" type="button">문서 생성</button>
+        </form>
+      </section>
+
+      <section class="insight-panel" aria-label="채용공고 분석">
+        <div class="panel-heading">
+          <h2>공고 요약</h2>
+          <span id="matchScore">0%</span>
+        </div>
+        <dl class="insight-list">
+          <div>
+            <dt>핵심 업무</dt>
+            <dd id="responsibilities">아직 분석 전입니다.</dd>
+          </div>
+          <div>
+            <dt>요구 역량</dt>
+            <dd id="requirements">채용공고 본문을 붙여 넣고 정리해 보세요.</dd>
+          </div>
+          <div>
+            <dt>추천 키워드</dt>
+            <dd id="keywords">-</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="document-preview" aria-label="문서 미리보기">
+        <article class="document-sheet" id="documentSheet">
+          <section class="resume-section">
+            <p class="document-label">Resume</p>
+            <h2 id="previewName">이름을 입력하세요</h2>
+            <p id="previewContact" class="muted">연락처</p>
+            <p id="previewSummary">채용공고와 나의 경력을 바탕으로 요약문이 생성됩니다.</p>
+            <h3>경력 성과</h3>
+            <ul id="previewExperience">
+              <li>경력과 성과를 입력하면 문서에 반영됩니다.</li>
+            </ul>
+            <h3>기술 스택</h3>
+            <p id="previewSkills">-</p>
+            <div id="openSourceBlock">
+              <h3>오픈소스 기여 방향</h3>
+              <p id="previewOpenSource">지원 직무와 연결되는 오픈소스 기여 아이디어가 생성됩니다.</p>
+            </div>
+          </section>
+
+          <section class="letter-section">
+            <p class="document-label">Cover Letter</p>
+            <h2 id="previewLetterTitle">커버레터</h2>
+            <div id="previewLetter">
+              <p>문서 생성 버튼을 누르면 커버레터 초안이 만들어집니다.</p>
+            </div>
+          </section>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
