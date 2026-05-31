@@ -1,0 +1,5 @@
+# Local career source files
+source/
+
+# OS/editor noise
+.DS_Store

@@ -54,6 +54,8 @@ coverletter.md
 
 사용자는 먼저 Excel 또는 Google Sheets로 자신의 경력을 정리합니다.
 
+로컬 Excel, CSV, PDF, 기존 경력서처럼 개인 정보가 들어 있는 원본 파일은 `source/` 폴더에 보관합니다. `source/` 폴더는 로컬 작업용이며 `.gitignore`에 포함되어 원격 저장소에 올라가지 않습니다.
+
 기본 컬럼:
 
 | NO | 업체 | Project | ISSUE | 담당 업무 | 문제 해결 | 배운점 |
