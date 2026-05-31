@@ -132,6 +132,8 @@ function buildDocument({ markdown, title, kind, sourcePath }) {
       classes,
       sourceName,
       metadata,
+      kind,
+      template,
     }),
     metadata,
     template,
@@ -306,7 +308,7 @@ function escapeAttr(value) {
   return String(value).replace(/"/g, "&quot;");
 }
 
-function wrapHtml({ title, body, classes, sourceName, metadata }) {
+function wrapHtml({ title, body, classes, sourceName, metadata, kind, template }) {
   const target = [metadata.target_role, metadata.target_company].filter(Boolean).join(" · ");
   return `<!doctype html>
 <html lang="ko">
@@ -315,19 +317,36 @@ function wrapHtml({ title, body, classes, sourceName, metadata }) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>${escapeHtml(title)}</title>
     <link rel="stylesheet" href="../templates/document.css">
+    <style>
+      .template-selector {
+        padding: 4px 8px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      @media print { .template-selector { display: none; } }
+    </style>
   </head>
   <body>
     <nav class="print-toolbar" aria-label="문서 도구">
       <a href="index.html">전체 보기</a>
       <span>${escapeHtml(sourceName)}</span>
       ${target ? `<span>${escapeHtml(target)}</span>` : ""}
-      <button type="button" onclick="window.print()">PDF 저장</button>
+      <div style="margin-left: auto; display: flex; gap: 8px; align-items: center;">
+        ${renderTemplateSelector(kind, template)}
+        <button type="button" onclick="window.print()">PDF 저장</button>
+      </div>
     </nav>
     <main class="print-stage">
       <article class="${classes}">
 ${body}
       </article>
     </main>
+    ${renderSharedScript()}
   </body>
 </html>
 `;
@@ -341,12 +360,31 @@ function buildIndexHtml(resume, coverletter) {
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Resume Preview</title>
     <link rel="stylesheet" href="../templates/document.css">
+    <style>
+      .template-selector {
+        padding: 4px 8px;
+        border: 1px solid var(--line);
+        border-radius: 4px;
+        background: #fff;
+        font-family: inherit;
+        font-size: 13px;
+        color: var(--ink);
+        cursor: pointer;
+      }
+      @media print { .template-selector { display: none; } }
+    </style>
   </head>
   <body>
     <nav class="print-toolbar" aria-label="문서 도구">
-      <a href="resume.html">이력서</a>
-      <a href="coverletter.html">커버레터</a>
-      <button type="button" onclick="window.print()">PDF 저장</button>
+      <div style="display: flex; gap: 14px; align-items: center;">
+        <a href="resume.html">이력서</a>
+        ${renderTemplateSelector("resume", resume.template)}
+      </div>
+      <div style="display: flex; gap: 14px; align-items: center; margin-left: 20px;">
+        <a href="coverletter.html">커버레터</a>
+        ${renderTemplateSelector("coverletter", coverletter.template)}
+      </div>
+      <button type="button" onclick="window.print()" style="margin-left: auto;">PDF 저장</button>
     </nav>
     <main class="print-stage combined">
       <article class="document document-resume template-${resume.template}">
@@ -356,8 +394,63 @@ ${resume.body}
 ${coverletter.body}
       </article>
     </main>
+    ${renderSharedScript()}
   </body>
 </html>
+`;
+}
+
+function renderTemplateSelector(kind, current) {
+  const options =
+    kind === "resume"
+      ? [
+          { value: "ats-basic", label: "이력서: 기본형 (ATS)" },
+          { value: "career-detail", label: "이력서: 경력 강조형" },
+          { value: "portfolio-open-source", label: "이력서: 포트폴리오형" },
+        ]
+      : [
+          { value: "job-fit", label: "커버레터: 직무 적합형" },
+          { value: "growth-story", label: "커버레터: 성장 서사형" },
+          { value: "impact-first", label: "커버레터: 임팩트 강조형" },
+        ];
+
+  const htmlOptions = options
+    .map(
+      (opt) =>
+        `<option value="${opt.value}" ${opt.value === current ? "selected" : ""}>${opt.label}</option>`,
+    )
+    .join("");
+
+  return `
+    <select class="template-selector" onchange="updateTemplate('${kind}', this.value)">
+      ${htmlOptions}
+    </select>
+  `;
+}
+
+function renderSharedScript() {
+  return `
+<script>
+  function updateTemplate(kind, template) {
+    const article = document.querySelector('.document-' + kind);
+    if (!article) return;
+    
+    // Remove old classes
+    const classesToRemove = [];
+    article.classList.forEach(cls => {
+      if (cls.startsWith('template-') || cls.startsWith('letter-')) {
+        classesToRemove.push(cls);
+      }
+    });
+    classesToRemove.forEach(cls => article.classList.remove(cls));
+    
+    // Add new classes
+    article.classList.add('template-' + template);
+    if (kind === 'coverletter') {
+      article.classList.add('letter-' + template);
+    }
+  }
+</script>
 `;
 }
 
