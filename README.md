@@ -93,7 +93,35 @@ Google Sheets를 사용하는 경우에는 다음 중 하나를 선택합니다.
 NO | 업체 | Project | ISSUE | 담당 업무 | 문제 해결 | 배운점
 ```
 
-### 4. Codex 앱으로 작업하기
+### 4. 개인정보는 .env에 넣기
+
+이름, 이메일, 전화번호처럼 민감한 정보는 Markdown에 직접 쓰지 않고 `.env`에 넣을 수 있습니다.
+
+```bash
+cp .env.example .env
+```
+
+`.env` 예시:
+
+```text
+CANDIDATE_NAME=홍길동
+CANDIDATE_EMAIL=hong@example.com
+CANDIDATE_PHONE=010-0000-0000
+CANDIDATE_LOCATION=Seoul
+CANDIDATE_PORTFOLIO=https://example.com
+```
+
+Markdown에서는 placeholder로 사용합니다.
+
+```markdown
+# {{CANDIDATE_NAME}}
+
+{{CANDIDATE_EMAIL}} | {{CANDIDATE_PHONE}} | {{CANDIDATE_LOCATION}} | {{CANDIDATE_PORTFOLIO}}
+```
+
+`.env`는 `.gitignore`에 포함되어 원격 저장소에 올라가지 않습니다. 저장소에는 키 이름만 있는 `.env.example`만 포함합니다.
+
+### 5. Codex 앱으로 작업하기
 
 Codex에서 이 폴더를 열고 아래처럼 요청합니다.
 
@@ -114,7 +142,7 @@ source/my-career.xlsx 파일을 읽어서 내 경력을 분석해 주세요.
 
 AI가 질문하면 답변을 추가로 입력합니다. 최종적으로 `resume.md`와 `coverletter.md`를 생성하도록 요청합니다.
 
-### 5. CLI로 작업하기
+### 6. CLI로 작업하기
 
 Codex CLI 또는 파일 접근이 가능한 AI CLI를 사용하는 경우 저장소 루트에서 실행합니다.
 
@@ -136,7 +164,7 @@ source/my-career.xlsx 파일을 기반으로 이력서와 커버레터를 만들
 
 사용하는 CLI가 로컬 파일 읽기를 지원하지 않으면 Excel을 CSV로 저장한 뒤 내용을 붙여넣거나, 필요한 행을 복사해서 프롬프트에 포함합니다.
 
-### 6. HTML 미리보기와 PDF 출력
+### 7. HTML 미리보기와 PDF 출력
 
 Node.js로 `resume.md`와 `coverletter.md`를 HTML로 변환합니다. 별도 패키지 설치 없이 Node.js만 있으면 됩니다. Node.js 18 이상 사용을 권장합니다.
 
@@ -155,6 +183,12 @@ source/coverletter.md
 
 ```bash
 npm run build:html -- --resume source/resume.md --coverletter source/coverletter.md
+```
+
+다른 env 파일을 사용하려면 `--env` 옵션을 지정합니다.
+
+```bash
+npm run build:html -- --resume source/resume.md --coverletter source/coverletter.md --env .env
 ```
 
 생성 결과는 `dist/` 폴더에 만들어집니다.

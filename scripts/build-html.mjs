@@ -6,10 +6,15 @@ const projectRoot = process.cwd();
 const resumePath = path.resolve(projectRoot, args.resume ?? "source/resume.md");
 const coverletterPath = path.resolve(projectRoot, args.coverletter ?? "source/coverletter.md");
 const outDir = path.resolve(projectRoot, args.out ?? "dist");
+const envPath = path.resolve(projectRoot, args.env ?? ".env");
 
 async function main() {
-  const resumeMarkdown = await readMarkdown(resumePath, "resume");
-  const coverletterMarkdown = await readMarkdown(coverletterPath, "coverletter");
+  const env = await loadEnv(envPath);
+  const resumeMarkdown = applyEnvPlaceholders(await readMarkdown(resumePath, "resume"), env);
+  const coverletterMarkdown = applyEnvPlaceholders(
+    await readMarkdown(coverletterPath, "coverletter"),
+    env,
+  );
 
   await mkdir(outDir, { recursive: true });
 
@@ -67,6 +72,43 @@ async function readMarkdown(filePath, label) {
     }
     throw error;
   }
+}
+
+async function loadEnv(filePath) {
+  try {
+    const raw = await readFile(filePath, "utf-8");
+    return raw
+      .split(/\r?\n/)
+      .map((line) => line.trim())
+      .filter((line) => line && !line.startsWith("#"))
+      .reduce((env, line) => {
+        const separator = line.indexOf("=");
+        if (separator === -1) return env;
+        const key = line.slice(0, separator).trim();
+        const value = stripEnvQuotes(line.slice(separator + 1).trim());
+        if (key) env[key] = value;
+        return env;
+      }, {});
+  } catch (error) {
+    if (error.code === "ENOENT") return {};
+    throw error;
+  }
+}
+
+function stripEnvQuotes(value) {
+  if (
+    (value.startsWith('"') && value.endsWith('"')) ||
+    (value.startsWith("'") && value.endsWith("'"))
+  ) {
+    return value.slice(1, -1);
+  }
+  return value;
+}
+
+function applyEnvPlaceholders(markdown, env) {
+  return markdown.replace(/\{\{([A-Z0-9_]+)\}\}/g, (match, key) => {
+    return env[key] || match;
+  });
 }
 
 function buildDocument({ markdown, title, kind, sourcePath }) {

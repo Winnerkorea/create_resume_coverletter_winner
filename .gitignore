@@ -1,5 +1,6 @@
 # Local career source files
 source/
+.env
 
 # Local generated documents
 dist/
