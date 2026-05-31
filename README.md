@@ -185,11 +185,14 @@ hong@example.com | Seoul | GitHub: github.com/example
 
 | 프로젝트 | 라이선스 | 참고한 부분 |
 | --- | --- | --- |
+| [yscho03/writing-career-resume-skill](https://github.com/yscho03/writing-career-resume-skill) | MIT | 한국어 기술 경력서 작성 Skill의 기본 방향, 최신순 경력 정렬, 기간 표기, 개조식 문체, 경력기술서 Markdown 작성 규칙 |
 | [elipapa/markdown-cv](https://github.com/elipapa/markdown-cv) | MIT | Markdown CV를 HTML/PDF로 렌더링하고 CSS로 스타일을 바꾸는 구조 |
 | [markdownresume/markdown-resume-templates](https://github.com/markdownresume/markdown-resume-templates) | MIT | 직무별 Markdown 이력서 템플릿 구성과 ATS 친화적인 Markdown 이력서 방향 |
 | [BingyanStudio/LapisCV](https://github.com/BingyanStudio/LapisCV) | MIT | Markdown을 VSCode, Typora, Obsidian에서 이력서로 작성하는 방식과 템플릿/스타일 분리 |
 | [showlotus/ShowCV](https://github.com/showlotus/ShowCV) | MIT | Markdown 편집, 실시간 미리보기, 다중 템플릿, 브라우저 PDF 출력 흐름 |
 | [rozita-hasani/markdown-resume](https://github.com/rozita-hasani/markdown-resume) | 저장소 라이선스 확인 필요 | Markdown 작성, live preview, theme 선택, PDF export 제품 흐름 |
+
+특히 `skills/writing-career-resume/SKILL.md`는 [yscho03/writing-career-resume-skill](https://github.com/yscho03/writing-career-resume-skill)의 한국어 기술 경력서 작성 Skill을 바탕으로, 이 프로젝트의 Excel/Google Sheets 입력, 채용공고 매칭률 분석, AI 보완 질문, 이력서/커버레터 MD 생성 흐름에 맞게 확장했습니다. 자세한 출처와 변경 내용은 [NOTICE](NOTICE)를 확인하세요.
 
 출처 표기 원칙:
 
@@ -282,3 +285,5 @@ skills/writing-career-resume/SKILL.md
 ## 라이선스
 
 이 프로젝트는 MIT License로 공개됩니다. 자세한 내용은 [LICENSE](LICENSE)를 확인하세요.
+
+외부 오픈소스를 바탕으로 작성하거나 참고한 내용은 [NOTICE](NOTICE)에 출처를 남깁니다.

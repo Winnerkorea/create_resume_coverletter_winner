@@ -1,0 +1,26 @@
+Resume Cover Letter Winner
+
+This project includes a career resume writing skill derived from and inspired by:
+
+- Project: yscho03/writing-career-resume-skill
+- URL: https://github.com/yscho03/writing-career-resume-skill
+- Original author: 조연섭
+- Blog: https://yscho03.tistory.com
+- License: MIT
+
+The original project describes a Claude Skill for generating Korean technical
+career statements and resumes in Markdown. This repository adapts that idea for
+an open-source workflow that combines Excel/Google Sheets career source data,
+job posting analysis, resume matching, Markdown output, HTML preview, and PDF
+export.
+
+Changes in this repository include:
+
+- Codex-compatible skill metadata and structure
+- Excel/Google Sheets source-data schema
+- Job posting analysis and matching-report workflow
+- AI follow-up question workflow
+- Resume and cover letter template selection metadata
+- Markdown-to-HTML-to-PDF system design
+
+Please keep this notice when redistributing substantial portions of this work.
